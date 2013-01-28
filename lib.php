@@ -69,14 +69,14 @@ class repository_eprints extends repository {
         if ($license == null) {
             $license = $CFG->sitedefaultlicense;
         }
-//--------------gregp---------------------------------------------
+
 
         $record = new EpClient();
-        $record->title   = $title;
-        $record->creators_name = $author;
+        $record->title   = $_FILES['repo_upload_file']['name'];
+        $record->creators_name = array('family' => $author, 'given' =>'');
         $record->date = time();
-        $record->url_file = $savepath;
-        $record->type   = $itemid;
+        $record->url_file = $_FILES['repo_upload_file']['tmp_name'];
+        $record->type   = $_FILES['repo_upload_file']['type'];
         $result_put = $record->put();
 
         $context = context_user::instance($USER->id);
